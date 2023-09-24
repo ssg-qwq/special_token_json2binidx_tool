@@ -220,45 +220,46 @@ def main():
     print(f"Vocab size: {tokenizer.vocab_size}")
     print(f"Output prefix: {args.output_prefix}")
 
-    dataset_name = None
-    mapping = mapping_dict
-    jsonl_folder = args.datafolder
-    ld = os.listdir(jsonl_folder)
-    config_file = os.path.basename(jsonl_folder)
-    if f"{config_file}.json" in ld:
-        with open(
-            os.path.join(jsonl_folder, f"{config_file}.json"), "r", encoding="utf-8"
-        ) as cf:
-            config = json.load(cf)
-            mapping.update(config)
-
-    jsonl_list = [f for f in ld if f.endswith(".jsonl")]
     encoded_docs = []
-    for jsonl_path in jsonl_list:
-        with open(os.path.join(jsonl_folder, jsonl_path), "r", encoding="utf-8") as f:
-            loop = tqdm.tqdm(f)
-            for line in loop:
-                if line.strip():
-                    try:
-                        loop.set_postfix(jsonl=jsonl_path)
-                        data = json.loads(line)
-                    except Exception as e:
-                        print(f"line{line} cannot read by json:{e}")
-                        continue
+    jsonl_folders = args.datafolder.split(",")
+    for jsonl_folder in jsonl_folders:
+        mapping = mapping_dict
+        ld = os.listdir(jsonl_folder)
+        config_file = os.path.basename(jsonl_folder)
+        if f"{config_file}.json" in ld:
+            with open(
+                os.path.join(jsonl_folder, f"{config_file}.json"), "r", encoding="utf-8"
+            ) as cf:
+                config = json.load(cf)
+                mapping.update(config)
 
-                    data["data"] = data.pop(mapping["data"])
-                    for ele in data["data"]:
-                        old_key = list(ele.keys())[0]
-                        if match_vs(old_key, mapping):
-                            ele[find_key_by_value(mapping, old_key)] = ele.pop(old_key)
-                
-                    flow = data["data"]
-                    tokens=[]
-                    for entity in flow:
-                        role=list(entity.keys())[0]
-                        token=sp_token_config[role]["prefix"]+encoder.tokenizer.tokenize(ftfy.fix_text(list(entity.values())[0]))+sp_token_config[role]["postfix"]
-                        tokens+=token
-                    encoded_docs.append(({"text":[tokens]},len(tokens)))
+        jsonl_list = [f for f in ld if f.endswith(".jsonl")]
+        for jsonl_path in jsonl_list:
+            with open(os.path.join(jsonl_folder, jsonl_path), "r", encoding="utf-8") as f:
+                loop = tqdm.tqdm(f)
+                for line in loop:
+                    if line.strip():
+                        try:
+                            loop.set_postfix(jsonl=jsonl_path)
+                            loop.set_description(f"folder:[{jsonl_folder}]")
+                            data = json.loads(line)
+                        except Exception as e:
+                            print(f"line{line} cannot read by json:{e}")
+                            continue
+
+                        data["data"] = data.pop(mapping["data"])
+                        for ele in data["data"]:
+                            old_key = list(ele.keys())[0]
+                            if match_vs(old_key, mapping):
+                                ele[find_key_by_value(mapping, old_key)] = ele.pop(old_key)
+                    
+                        flow = data["data"]
+                        tokens=[]
+                        for entity in flow:
+                            role=list(entity.keys())[0]
+                            token=sp_token_config[role]["prefix"]+encoder.tokenizer.tokenize(ftfy.fix_text(list(entity.values())[0]))+sp_token_config[role]["postfix"]
+                            tokens+=token
+                        encoded_docs.append(({"text":[tokens]},len(tokens)))
     
     # print(encoder.encode("asdasdasdasd"))
     # print(encoded_docs[-1])
