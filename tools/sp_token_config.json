@@ -1,0 +1,65 @@
+{
+  "search": {
+    "prefix": [
+      65530,
+      65529
+    ],
+    "postfix": [
+      65535,
+      11
+    ]
+  },
+  "system": {
+    "prefix": [
+      65530,
+      65531
+    ],
+    "postfix": [
+      65535,
+      11
+    ]
+  },
+  "conversation": {
+    "prefix": [
+      65530,
+      65532
+    ],
+    "postfix": [
+      65535,
+      11
+    ]
+  },
+  "think": {
+    "prefix": [
+      65530,
+      65533
+    ],
+    "postfix": [
+      65535,
+      11
+    ]
+  },
+  "env": {
+    "prefix": [
+      65530,
+      65534
+    ],
+    "postfix": [
+      65535,
+      11
+    ]
+  },
+  "common": {
+    "prefix": [
+      65530
+    ],
+    "postfix": [
+      65535,
+      11
+    ]
+  },
+  "text": {
+    "prefix": [],
+    "postfix": []
+  }
+}
