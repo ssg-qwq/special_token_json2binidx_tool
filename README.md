@@ -4,7 +4,7 @@ This repository is greatly simplified from https://github.com/EleutherAI/gpt-neo
 
 Motivation: datasets (-> special_token_json2binidx_tool -> RWKV-LM(-infctx) pretraining) -> base LLM -> https://github.com/neromous/RWKV-Ouroboros online training
 
-## The multilingual rwkv-4-world models use a new tokenizer rwkv_vocab_v20230424.txt.
+## Using rwkv-4-world models tokenizer rwkv_vocab_v20230424.txt.
 ```
 python tools/preprocess_ssg_protocol_data.py --datafolder ./your_folder --sp_token_config ./tools/sp_token_config.json --output-prefix ./data/sample --vocab ./rwkv_vocab_v20230424.txt --dataset-impl mmap --tokenizer-type RWKVTokenizer --append-eod
 ```
