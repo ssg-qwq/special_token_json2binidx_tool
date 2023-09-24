@@ -23,8 +23,8 @@ The jsonl format sample (one line for each document):
 mapping rule config "your_folder.json" format sample:
 ```json
 {
-    "data": "sample",
-    "text": "aaa", # represents mapping "text" special tokens in sp_token_config.json to "aaa"
+    "data": "sample", # represents mapping "data" field in ssg-protocol into "sample"
+    "text": "aaa", # represents mapping "text" special tokens in sp_token_config.json into "aaa"
     "conversation": "conversation",
     "system": "system"
 }
