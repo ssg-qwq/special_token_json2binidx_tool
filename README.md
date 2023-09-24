@@ -6,7 +6,7 @@ Motivation: datasets (-> special_token_json2binidx_tool -> RWKV-LM(-infctx) pret
 
 ## Using rwkv-4-world models tokenizer rwkv_vocab_v20230424.txt.
 ```
-python tools/preprocess_ssg_protocol_data.py --datafolder ./your_folder --sp_token_config ./tools/sp_token_config.json --output-prefix ./data/sample --vocab ./rwkv_vocab_v20230424.txt --dataset-impl mmap --tokenizer-type RWKVTokenizer --append-eod
+python tools/preprocess_ssg_protocol_data.py --datafolder ./your_folder1,./your_folder2 --sp_token_config ./tools/sp_token_config.json --output-prefix ./data/sample --vocab ./rwkv_vocab_v20230424.txt --dataset-impl mmap --tokenizer-type RWKVTokenizer --append-eod
 ```
 
 The data folder strucutre:
