@@ -34,5 +34,5 @@ mapping rule config "your_folder.json" format sample:
 
 for non-sp-token datasets:
 ```json
-{"sample": [{"text":"content of dataset"}]
+{"sample": [{"text":"content of dataset"}]}
 ```
